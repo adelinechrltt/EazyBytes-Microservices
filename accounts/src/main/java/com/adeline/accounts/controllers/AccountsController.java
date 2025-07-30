@@ -4,7 +4,7 @@ import com.adeline.accounts.constants.AccountConstants;
 import com.adeline.accounts.dtos.CustomerDto;
 import com.adeline.accounts.dtos.ResponseDto;
 import com.adeline.accounts.services.IAccountsService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,6 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class AccountsController {
 
+    /// dependency injection:
+    /// i don't explicitly declare
+    /// this.accountsService = new AccountsServiceImpl(...);
+    /// because spring alreadu automatically wires it up for me
     private IAccountsService accountsService;
 
 //    @GetMapping("/sayHello")

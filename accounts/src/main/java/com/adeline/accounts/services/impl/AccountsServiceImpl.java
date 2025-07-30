@@ -1,11 +1,13 @@
 package com.adeline.accounts.services.impl;
 
 import com.adeline.accounts.constants.AccountConstants;
+import com.adeline.accounts.dtos.AccountDto;
 import com.adeline.accounts.dtos.CustomerDto;
 import com.adeline.accounts.entities.Account;
 import com.adeline.accounts.entities.Customer;
 import com.adeline.accounts.exceptions.CustomerAlreadyExistsException;
 import com.adeline.accounts.exceptions.ResourceNotFoundException;
+import com.adeline.accounts.mapper.AccountsMapper;
 import com.adeline.accounts.mapper.CustomerMapper;
 import com.adeline.accounts.repositories.AccountRepository;
 import com.adeline.accounts.repositories.CustomerRepository;
@@ -48,7 +50,10 @@ public class AccountsServiceImpl implements IAccountsService {
         Account account = accountRepository.findByCustomerId(customer.getCustomerId()).orElseThrow(
                 () -> new ResourceNotFoundException("Account", "Customer ID", customer.getCustomerId().toString())
         );
-        return null;
+        CustomerDto customerDto = CustomerMapper.mapToCustomerDto(customer, new CustomerDto());
+        AccountDto accountDto = AccountsMapper.mapToAccountsDto(account, new AccountDto());
+        customerDto.setAccountDto(accountDto);
+        return customerDto;
     }
 
     private Account createNewAccount(Customer customer) {

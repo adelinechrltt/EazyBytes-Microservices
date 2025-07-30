@@ -20,7 +20,7 @@ public class BaseEntity {
     private LocalDateTime createdAt;
 
     @Column(updatable = false)
-    private LocalDateTime createdBy;
+    private String createdBy;
 
     /// insertable = false
     /// means: "please do not populate this column when i insert a new row"
@@ -28,5 +28,5 @@ public class BaseEntity {
     private LocalDateTime updatedAt;
 
     @Column(insertable = false)
-    private LocalDateTime updatedBy;
+    private String updatedBy;
 }

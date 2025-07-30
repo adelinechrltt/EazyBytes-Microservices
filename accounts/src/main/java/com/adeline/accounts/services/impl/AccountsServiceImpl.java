@@ -4,6 +4,7 @@ import com.adeline.accounts.constants.AccountConstants;
 import com.adeline.accounts.dtos.CustomerDto;
 import com.adeline.accounts.entities.Account;
 import com.adeline.accounts.entities.Customer;
+import com.adeline.accounts.exceptions.CustomerAlreadyExistsException;
 import com.adeline.accounts.mapper.CustomerMapper;
 import com.adeline.accounts.repositories.AccountRepository;
 import com.adeline.accounts.repositories.CustomerRepository;
@@ -11,6 +12,7 @@ import com.adeline.accounts.services.IAccountsService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -23,8 +25,13 @@ public class AccountsServiceImpl implements IAccountsService {
     @Override
     public void createAccount(CustomerDto customerDto) {
         Customer customer = CustomerMapper.mapToCustomer(customerDto, new Customer());
-        Customer savedCustomer = customerRepository.save(customer); /// ---> boilerplate code for connecting with the SQL etc. abstracted by Spring JPA framework
 
+        Optional<Customer> optionalCustomer = customerRepository.findByMobileNumber(customerDto.getMobileNumber());
+        if (optionalCustomer.isPresent()) {
+            throw new CustomerAlreadyExistsException("Customer already registered with existing phone number" + customerDto.getMobileNumber());
+        }
+
+        Customer savedCustomer = customerRepository.save(customer); /// ---> boilerplate code for connecting with the SQL etc. abstracted by Spring JPA framework
         accountRepository.save(createNewAccount(savedCustomer));
     }
 

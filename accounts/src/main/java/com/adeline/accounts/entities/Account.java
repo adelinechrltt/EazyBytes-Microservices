@@ -10,8 +10,6 @@ import org.hibernate.annotations.GenericGenerator;
 @Getter @Setter @ToString
 public class Account extends BaseEntity {
 
-    @GeneratedValue(strategy= GenerationType.AUTO, generator="native")
-    @GenericGenerator(name="native", strategy="native")
     @Column(name="customer_id")
     private Long customerId;
 

@@ -5,6 +5,7 @@ import com.adeline.accounts.dtos.CustomerDto;
 import com.adeline.accounts.entities.Account;
 import com.adeline.accounts.entities.Customer;
 import com.adeline.accounts.exceptions.CustomerAlreadyExistsException;
+import com.adeline.accounts.exceptions.ResourceNotFoundException;
 import com.adeline.accounts.mapper.CustomerMapper;
 import com.adeline.accounts.repositories.AccountRepository;
 import com.adeline.accounts.repositories.CustomerRepository;
@@ -37,6 +38,17 @@ public class AccountsServiceImpl implements IAccountsService {
 
         Customer savedCustomer = customerRepository.save(customer); /// ---> boilerplate code for connecting with the SQL etc. abstracted by Spring JPA framework
         accountRepository.save(createNewAccount(savedCustomer));
+    }
+
+    @Override
+    public CustomerDto fetchAccount(String mobileNumber) {
+        Customer customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(
+                () -> new ResourceNotFoundException("Customer", "mobileNumber", mobileNumber)
+        );
+        Account account = accountRepository.findByCustomerId(customer.getCustomerId()).orElseThrow(
+                () -> new ResourceNotFoundException("Account", "Customer ID", customer.getCustomerId().toString())
+        );
+        return null;
     }
 
     private Account createNewAccount(Customer customer) {

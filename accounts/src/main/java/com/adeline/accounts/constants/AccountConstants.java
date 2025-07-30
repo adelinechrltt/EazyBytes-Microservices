@@ -1,7 +1,7 @@
 package com.adeline.accounts.constants;
 
-public class AccountsConstants {
-    private AccountsConstants() {
+public class AccountConstants {
+    private AccountConstants() {
         // restrict instantiation
     }
 

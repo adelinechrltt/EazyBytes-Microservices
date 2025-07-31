@@ -36,7 +36,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     ///  using global logic exception handling for all types of runtime exceptions
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDto> handleGlobalException(
-            ResourceNotFoundException exception,
+            Exception exception,
             WebRequest webRequest
     ){
       ErrorResponseDto errorResponseDto = new ErrorResponseDto(

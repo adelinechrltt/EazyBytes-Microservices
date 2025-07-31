@@ -4,6 +4,10 @@ import com.adeline.accounts.constants.AccountConstants;
 import com.adeline.accounts.dtos.CustomerDto;
 import com.adeline.accounts.dtos.ResponseDto;
 import com.adeline.accounts.services.IAccountsService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Pattern;
+import org.springframework.data.repository.query.Param;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 @RestController
 @RequestMapping(path="/api", produces=(MediaType.APPLICATION_JSON_VALUE))
 @AllArgsConstructor
+@Validated
 public class AccountsController {
 
     /// dependency injection:
@@ -30,7 +35,7 @@ public class AccountsController {
 //    }
 
     @PostMapping("/create")
-    public ResponseEntity<ResponseDto> createAccount(@RequestBody CustomerDto customerDto){
+    public ResponseEntity<ResponseDto> createAccount(@Valid @RequestBody CustomerDto customerDto){
         iAccountsService.createAccount(customerDto);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -38,7 +43,10 @@ public class AccountsController {
     }
 
     @GetMapping("/fetch")
-    public ResponseEntity<CustomerDto> fetchAccountDetails(@RequestParam String mobileNumber){
+    public ResponseEntity<CustomerDto> fetchAccountDetails(
+            @RequestParam @Pattern(regexp="(^$|[0-9]{10})", message="Mobile number must be 10 digits")
+            String mobileNumber
+    ){
         CustomerDto customerDto = iAccountsService.fetchAccount(mobileNumber);
         return ResponseEntity
                 .status(HttpStatus.OK)

@@ -1,8 +1,6 @@
 package com.adeline.cards.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +13,7 @@ public class Card extends BaseEntity {
 
     @Column(name="card_id")
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cardId;
 
     @Column(name="mobile_number")

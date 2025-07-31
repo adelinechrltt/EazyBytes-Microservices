@@ -12,6 +12,22 @@ import java.time.LocalDateTime;
 @ControllerAdvice // --> invoke the exception methods for all controllers
 public class GlobalExceptionHandler {
 
+    ///  using global logic exception handling for all types of runtime exceptions
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponseDto> handleGlobalException(
+            ResourceNotFoundException exception,
+            WebRequest webRequest
+    ){
+      ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+              webRequest.getDescription(false),
+              HttpStatus.INTERNAL_SERVER_ERROR,
+              exception.getMessage(),
+              LocalDateTime.now()
+      );
+
+      return new ResponseEntity<>(errorResponseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponseDto> handleResourceNotFoundException(
             ResourceNotFoundException exception,

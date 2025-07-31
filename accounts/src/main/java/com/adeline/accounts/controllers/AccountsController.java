@@ -18,12 +18,11 @@ import org.springframework.http.ResponseEntity;
 @AllArgsConstructor
 public class AccountsController {
 
-    private final IAccountsService iAccountsService;
     /// dependency injection:
     /// i don't explicitly declare
     /// this.accountsService = new AccountsServiceImpl(...);
     /// because spring alreadu automatically wires it up for me
-    private IAccountsService accountsService;
+    private IAccountsService iAccountsService;
 
 //    @GetMapping("/sayHello")
 //    public String sayHello() {
@@ -32,7 +31,7 @@ public class AccountsController {
 
     @PostMapping("/create")
     public ResponseEntity<ResponseDto> createAccount(@RequestBody CustomerDto customerDto){
-        accountsService.createAccount(customerDto);
+        iAccountsService.createAccount(customerDto);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(new ResponseDto(AccountConstants.STATUS_201, AccountConstants.MESSAGE_201));

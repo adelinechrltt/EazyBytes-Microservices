@@ -4,6 +4,10 @@ import com.adeline.accounts.constants.AccountConstants;
 import com.adeline.accounts.dtos.CustomerDto;
 import com.adeline.accounts.dtos.ResponseDto;
 import com.adeline.accounts.services.IAccountsService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import org.springframework.data.repository.query.Param;
@@ -17,6 +21,10 @@ import org.springframework.http.ResponseEntity;
 ///  controller layer is only responsible for accepting and sending requests
 ///  business logic is done in the service layer
 
+@Tag(
+        name = "CRUD REST APIs for Accounts in EazyBank",
+        description = "CRUD REST APIs in EazyBank to CREATE, FETCH, UPDATE, and DELETE account details"
+)
 @RestController
 @RequestMapping(path="/api", produces=(MediaType.APPLICATION_JSON_VALUE))
 @AllArgsConstructor
@@ -34,6 +42,14 @@ public class AccountsController {
 //        return "Hello World!";
 //    }
 
+    @Operation(
+            summary = "Create Account",
+            description = "REST API endpoint to create new Customer & Account inside EazyBank"
+    )
+    @ApiResponse(
+            responseCode = "201",
+            description = "HTTP status CREATED"
+    )
     @PostMapping("/create")
     public ResponseEntity<ResponseDto> createAccount(@Valid @RequestBody CustomerDto customerDto){
         iAccountsService.createAccount(customerDto);
@@ -42,6 +58,14 @@ public class AccountsController {
                 .body(new ResponseDto(AccountConstants.STATUS_201, AccountConstants.MESSAGE_201));
     }
 
+    @Operation(
+            summary = "Fetch Accounts",
+            description = "REST API endpoint to fetch Customer & Account data based on mobile number inside EazyBank"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "HTTP status OK"
+    )
     @GetMapping("/fetch")
     public ResponseEntity<CustomerDto> fetchAccountDetails(
             @RequestParam @Pattern(regexp="(^$|[0-9]{10})", message="Mobile number must be 10 digits")
@@ -53,6 +77,20 @@ public class AccountsController {
                 .body(customerDto);
     }
 
+    @Operation(
+            summary = "Update Account Details",
+            description = "REST API endpoint to update Customer & Account data based on account number inside EazyBank"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP status Internal Server Error"
+            )
+    })
     @PutMapping("/update")
     public ResponseEntity<ResponseDto> updateAccount(@RequestBody CustomerDto customerDto){
         boolean isUpdated = iAccountsService.updateAccount(customerDto);
@@ -67,6 +105,20 @@ public class AccountsController {
         }
     }
 
+    @Operation(
+            summary = "Delete Account",
+            description = "REST API endpoint to delete Customer & Account data based on mobile number inside EazyBank"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP status Internal Server Error"
+            )
+    })
     @DeleteMapping("/delete")
     public ResponseEntity<ResponseDto> deleteAccount(
             @RequestParam @Pattern(regexp="(^$|[0-9]{10})", message="Mobile number must be 10 digits")

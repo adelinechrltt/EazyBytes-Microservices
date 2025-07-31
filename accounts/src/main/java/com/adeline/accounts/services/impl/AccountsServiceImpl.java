@@ -36,7 +36,6 @@ public class AccountsServiceImpl implements IAccountsService {
         }
 
         customer.setCreatedAt(LocalDateTime.now());
-        customer.setCreatedBy("Anonymous");
 
         Customer savedCustomer = customerRepository.save(customer); /// ---> boilerplate code for connecting with the SQL etc. abstracted by Spring JPA framework
         accountRepository.save(createNewAccount(savedCustomer));

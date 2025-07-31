@@ -14,7 +14,7 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     Optional<Account> findByCustomerId(Long customerId);
 
     ///  two neccessary annotatinos for updating data
-    @Transactional 
+    @Transactional
     @Modifying
     void deleteByCustomerId(Long customerId); /// --> method query derivation
 }

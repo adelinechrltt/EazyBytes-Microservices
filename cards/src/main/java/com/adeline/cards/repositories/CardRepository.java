@@ -16,6 +16,7 @@ public interface CardRepository extends JpaRepository<Card, Long> {
     /// we only do FK to PK conversion in the service layer
 
     Optional<Card> findByCardId(Long cardId);
+    Optional<Card> findByMobileNumber(String mobileNumber);
 
     @Transactional
     @Modifying

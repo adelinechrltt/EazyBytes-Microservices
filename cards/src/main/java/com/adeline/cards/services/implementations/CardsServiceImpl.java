@@ -1,9 +1,12 @@
 package com.adeline.cards.services.implementations;
 
 import com.adeline.cards.dtos.CardDto;
+import com.adeline.cards.entities.Card;
+import com.adeline.cards.exceptions.CardAlreadyExistsException;
 import com.adeline.cards.mappers.CardMapper;
 import com.adeline.cards.repositories.CardRepository;
 import com.adeline.cards.services.ICardsService;
+
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +21,11 @@ public class CardsServiceImpl implements ICardsService {
 
     @Override
     public void createCard(CardDto cardDto) {
-        Card card = CardMapper
+        Card card = CardMapper.mapToCard(new Card(), cardDto);
 
-        Optional<Customer> optionalCustomer = customerRepository.findByMobileNumber(customerDto.getMobileNumber());
-        if (optionalCustomer.isPresent()) {
-            throw new CustomerAlreadyExistsException("Customer already registered with existing phone number" + customerDto.getMobileNumber());
+        Optional<Card> optionalCard = cardRepository.findByCardId(cardDto.getCardId());
+        if (optionalCard.isPresent()) {
+            throw new CardAlreadyExistsException("Card already registered with existing card ID" + cardDto.getCardId());
         }
 
         customer.setCreatedAt(LocalDateTime.now());

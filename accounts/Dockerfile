@@ -9,5 +9,5 @@ COPY target/accounts-0.0.1-SNAPSHOT.jar accounts-0.0.1-SNAPSHOT.jar
 # ENTRYPOINT
 # For defining the list of instructions to be excecuted whenever the Docker container is run.
 # E.g.
-# ENTRYPOINT ["java", "-jar", accounts-0.0.1-SNAPSHOT.jar] --> run the "java" and "-jar" commands with the accounts-0.0.1-SNAPSHOT.jar as the target .jar
-ENTRYPOINT ["java", "-jar", accounts-0.0.1-SNAPSHOT.jar]
+# ENTRYPOINT ["java", "-jar", "accounts-0.0.1-SNAPSHOT.jar"] --> run the "java" and "-jar" commands with the accounts-0.0.1-SNAPSHOT.jar as the target .jar
+ENTRYPOINT ["java", "-jar", "accounts-0.0.1-SNAPSHOT.jar"]

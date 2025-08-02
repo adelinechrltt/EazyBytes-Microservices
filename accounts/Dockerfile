@@ -1,6 +1,6 @@
 FROM openjdk:24-jdk-slim
 
-LABEL github.com/adelinechrltt
+LABEL maintainer="github.com/adelinechrltt"
 
 # COPY
 # For copying a file from local project directory to Docker image during build process

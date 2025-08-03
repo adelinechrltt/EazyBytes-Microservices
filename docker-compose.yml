@@ -1,0 +1,41 @@
+services:
+  accounts:
+    image: "adelinechrltt/accounts:latest"
+    container_name: "accounts-ms" # ms --> microservices
+    ports:
+      - "8080:8080"
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - eazybank # --> tag a network to let docker know that all these microservices
+#     will need to talk to each other in the same network
+
+  loans:
+    image: "adelinechrltt/loans:latest"
+    container_name: "loans-ms" # ms --> microservices
+    ports:
+      - "8090:8090"
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - eazybank
+
+  cards:
+    image: "adelinechrltt/cards:latest"
+    container_name: "cards-ms" # ms --> microservices
+    ports:
+      - "9090:9090"
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - eazybank
+
+networks: # --> create a custom bridge network named 'eazybank' for inter-container communication
+  eazybank:
+    driver: "bridge"

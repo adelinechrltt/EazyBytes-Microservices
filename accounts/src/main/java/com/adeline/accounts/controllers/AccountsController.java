@@ -1,6 +1,7 @@
 package com.adeline.accounts.controllers;
 
 import com.adeline.accounts.constants.AccountConstants;
+import com.adeline.accounts.dtos.AccountsContactInfoDto;
 import com.adeline.accounts.dtos.CustomerDto;
 import com.adeline.accounts.dtos.ErrorResponseDto;
 import com.adeline.accounts.dtos.ResponseDto;
@@ -48,6 +49,9 @@ public class AccountsController {
 
     @Autowired
     private Environment environment;
+
+    @Autowired
+    private AccountsContactInfoDto accountsContactInfoDto;
 
     @Value("${build.version}")
     private String buildVersion;
@@ -194,10 +198,32 @@ public class AccountsController {
             )
     }
     )
-    @GetMapping("/java-version")
+    @GetMapping("/contact-info")
     public ResponseEntity<String> getJavaVersion(){
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(environment.getProperty("MAVEN_HOME"));
+    }
+
+    @Operation(
+            summary = "Get Contact Info",
+            description = "Get contact info deployed into accounts microservice"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP status Internal Server Error"
+            )
+    }
+    )
+    @GetMapping("/java-version")
+    public ResponseEntity<AccountsContactInfoDto> getContactInfo(){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(accountsContactInfoDto);
     }
 }

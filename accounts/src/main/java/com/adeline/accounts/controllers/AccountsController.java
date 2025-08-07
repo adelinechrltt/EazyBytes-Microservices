@@ -31,7 +31,6 @@ import org.springframework.http.ResponseEntity;
 )
 @RestController
 @RequestMapping(path="/api", produces=(MediaType.APPLICATION_JSON_VALUE))
-@AllArgsConstructor
 @Validated
 public class AccountsController {
 
@@ -40,6 +39,10 @@ public class AccountsController {
     /// this.accountsService = new AccountsServiceImpl(...);
     /// because spring alreadu automatically wires it up for me
     private IAccountsService iAccountsService;
+
+    public AccountsController(IAccountsService iAccountsService) {
+        this.iAccountsService = iAccountsService;
+    }
 
     @Value("${build.version}")
     private String buildVersion;

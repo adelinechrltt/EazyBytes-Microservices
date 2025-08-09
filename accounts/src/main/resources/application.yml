@@ -18,6 +18,8 @@ spring:
     import:
       - "application_prod.yml"
       - "application_qa.yml"
+  profiles:
+    active:
 
 build:
   version: "3.0"

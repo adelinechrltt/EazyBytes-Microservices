@@ -16,10 +16,10 @@ spring:
     show-sql: true
 
 build:
-  version: "1.0"
+  version: "3.0"
 
 accounts:
-  message: "Welcoem to EazyBank accounts related local APIs"
+  message: "Welcome to EazyBank accounts related local APIs"
   contactDetails:
     name: "John Doe - Developer"
     email: "john@eazybank.com"

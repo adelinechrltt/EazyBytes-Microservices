@@ -3,6 +3,9 @@ spring:
     activate:
       on-profile: "prod"
 
+build:
+  version: "1.0"
+
 cards:
   message: "Welcome to EazyBank cards related prod APIs "
   contactDetails:

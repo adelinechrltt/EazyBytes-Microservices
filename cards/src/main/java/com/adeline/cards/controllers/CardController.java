@@ -5,6 +5,9 @@ import com.adeline.cards.dtos.CardDto;
 import com.adeline.cards.dtos.CardsContactInfoDto;
 import com.adeline.cards.dtos.ResponseDto;
 import com.adeline.cards.services.ICardsService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
@@ -95,5 +98,71 @@ public class CardController {
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ResponseDto(CardConstants.STATUS_500, CardConstants.STATUS_500));
         }
+    }
+
+    @Operation(
+            summary = "Get Build Information",
+            description = "Get build information deployed into accounts microservice"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP status Internal Server Error"
+            )
+    }
+    )
+    @GetMapping("/build-info")
+    public ResponseEntity<String> getBuildInfo(){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(buildVersion);
+    }
+
+    @Operation(
+            summary = "Get Java version",
+            description = "Get Java version information deployed into accounts microservice"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP status Internal Server Error"
+            )
+    }
+    )
+    @GetMapping("/java-version")
+    public ResponseEntity<String> getJavaVersion(){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(environment.getProperty("MAVEN_HOME"));
+    }
+
+    @Operation(
+            summary = "Get Contact Info",
+            description = "Get contact info deployed into accounts microservice"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP status Internal Server Error"
+            )
+    }
+    )
+    @GetMapping("/contact-info")
+    public ResponseEntity<CardsContactInfoDto> getContactInfo(){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(cardsContactInfoDto);
     }
 }

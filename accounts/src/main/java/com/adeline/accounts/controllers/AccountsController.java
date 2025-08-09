@@ -198,7 +198,7 @@ public class AccountsController {
             )
     }
     )
-    @GetMapping("/contact-info")
+    @GetMapping("/java-version")
     public ResponseEntity<String> getJavaVersion(){
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -220,7 +220,7 @@ public class AccountsController {
             )
     }
     )
-    @GetMapping("/java-version")
+    @GetMapping("/contact-info")
     public ResponseEntity<AccountsContactInfoDto> getContactInfo(){
         return ResponseEntity
                 .status(HttpStatus.OK)

@@ -2,6 +2,7 @@ package com.adeline.cards.controllers;
 
 import com.adeline.cards.constants.CardConstants;
 import com.adeline.cards.dtos.CardDto;
+import com.adeline.cards.dtos.CardsContactInfoDto;
 import com.adeline.cards.dtos.ResponseDto;
 import com.adeline.cards.services.ICardsService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -9,6 +10,9 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import org.apache.coyote.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,11 +26,22 @@ import org.springframework.web.bind.annotation.*;
 )
 @RestController
 @RequestMapping(path = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
-@AllArgsConstructor
 @Validated
 public class CardController {
 
-    private ICardsService cardsService;
+    private final ICardsService cardsService;
+    public CardController(ICardsService cardsService) {
+        this.cardsService = cardsService;
+    }
+
+    @Autowired
+    private Environment environment;
+
+    @Autowired
+    private CardsContactInfoDto cardsContactInfoDto;
+
+    @Value("${build.version}")
+    private String buildVersion;
 
     @GetMapping("/fetch")
     public ResponseEntity<CardDto> fetchCard(

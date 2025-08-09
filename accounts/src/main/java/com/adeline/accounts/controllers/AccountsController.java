@@ -37,10 +37,6 @@ import org.springframework.http.ResponseEntity;
 @Validated
 public class AccountsController {
 
-    /// dependency injection:
-    /// i don't explicitly declare
-    /// this.accountsService = new AccountsServiceImpl(...);
-    /// because spring alreadu automatically wires it up for me
     private IAccountsService iAccountsService;
 
     public AccountsController(IAccountsService iAccountsService) {

@@ -6,8 +6,15 @@ spring:
   cloud:
     config:
       server:
-        native:
-          search-locations: "classpath:/config"
+#        native:
+#          search-locations: "classpath:/config"
+#          search-locations: "file:///Users/adelinec/Desktop/Personal/Spring/eazybytes-microservices-course/config"
+        git:
+          uri: "https://github.com/adelinechrltt/EazyBytes-MicroservicesConfig"
+          default-label: "main" # --> for branches
+          timeout: 5 # --> wait only a maximum of 5 seconds to connect to the GH repo, if 5 seconds pass then throw exception
+          clone-on-start: true # --> try to clone the GH repo into local during everu configserver startup
+          force-pull: true # --> always override local repo with remote changes so that local repo is always up-to-date with remote
 
 server:
   port: 8071

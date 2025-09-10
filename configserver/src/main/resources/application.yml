@@ -16,5 +16,14 @@ spring:
           clone-on-start: true # --> try to clone the GH repo into local during everu configserver startup
           force-pull: true # --> always override local repo with remote changes so that local repo is always up-to-date with remote
 
+encrypt:
+  key: "ASDFASDFASDF1234567890ASDFASDFTESTINGKEYlolololNOTAPROPERKEY"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: encrypt,decrypt
+
 server:
   port: 8071

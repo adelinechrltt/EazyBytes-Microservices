@@ -12,3 +12,4 @@ A code-along repo from the Udemy course [Master Microservices with Spring Boot, 
 - Docker image generation with Dockerfile, Buildpacks, and Google Jib
 - Profile configuration, both internal (app.yml key-value entry) and external (run configs, CLI env. variables)
 - Configserver module & config folder setup
+- Config properties encryption 

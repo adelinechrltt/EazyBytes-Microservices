@@ -15,6 +15,17 @@ spring:
           timeout: 5 # --> wait only a maximum of 5 seconds to connect to the GH repo, if 5 seconds pass then throw exception
           clone-on-start: true # --> try to clone the GH repo into local during everu configserver startup
           force-pull: true # --> always override local repo with remote changes so that local repo is always up-to-date with remote
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "guest"
+    password: "guest"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        identity: "*"
 
 encrypt:
   key: "ASDFASDFASDF1234567890ASDFASDFTESTINGKEYlolololNOTAPROPERKEY"

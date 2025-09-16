@@ -30,11 +30,5 @@ management:
 encrypt:
   key: "ASDFASDFASDF1234567890ASDFASDFTESTINGKEYlolololNOTAPROPERKEY"
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: encrypt,decrypt
-
 server:
   port: 8071
